@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Planner</title>
+  <meta name="description" content="A calm, offline-first planner. Your data stays on your device — no account, no server.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141511" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+
+  <!-- iOS Add to Home Screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Planner">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+
+  <!-- Fonts: Fraunces + Outfit (Google Fonts) with full system fallbacks.
+       These are the only external requests the app makes; the service
+       worker caches them after the first visit so the app works offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <main id="view" class="view" aria-live="polite"></main>
+  </div>
+
+  <nav id="tabbar" aria-label="Main tabs"></nav>
+  <button id="fab-add" class="fab" data-action="open-add" aria-label="Add event, task or course">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+  <button id="fab-ai" class="fab" data-action="open-assistant" aria-label="Open Schedule Assistant">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 11l-5.6 1.9L12 18.5l-1.9-5.6L4.5 11l5.6-2.4z"/></svg>
+  </button>
+
+  <!-- Overlay roots (sheets, dialogs, toasts, banners, assistant) -->
+  <div id="sheet-root"></div>
+  <div id="dialog-root"></div>
+  <div id="assistant-root"></div>
+  <div id="banner-root"></div>
+  <div id="toast-root"></div>
+
+  <noscript>
+    <div style="padding:24px;font-family:system-ui;text-align:center">
+      Planner runs entirely in your browser and needs JavaScript turned on.
+    </div>
+  </noscript>
+
+  <!-- Load order matters: helpers → data → scheduling → calendar links → UI -->
+  <script src="js/core.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/scheduling.js"></script>
+  <script src="js/calendar-links.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
